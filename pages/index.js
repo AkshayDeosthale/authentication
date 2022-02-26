@@ -5,31 +5,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
 
 export default function Home() {
+  //Importing session
   const { data: session, status } = useSession();
-
-  const renderButton = () => {
-    if (session) {
-      return (
-        <button
-          className="border-2 border-black p-2 rounded-lg"
-          onClick={() => signOut()}
-        >
-          sign out now
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="border-2 border-black p-2 rounded-lg"
-          onClick={() =>
-            signIn("google", { callbackUrl: "http://localhost:3000/dashboard" })
-          }
-        >
-          Sign in here
-        </button>
-      );
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -41,8 +18,10 @@ export default function Home() {
 
       <button
         className="border-4  p-2 rounded-full h-48 w-48 border-green-500 text-white hover:bg-blue-900 "
-        onClick={() =>
-          signIn("google", { callbackUrl: "http://localhost:3000/dashboard" })
+        onClick={
+          () =>
+            signIn("google", { callbackUrl: "http://localhost:3000/dashboard" })
+          // The signIn function will now exclusively use google aithentication , the callbackUrl is the page you want to redirect after being authenticated.
         }
       >
         Sign in here
